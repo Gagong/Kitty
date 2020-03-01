@@ -18,13 +18,13 @@ public class GetJDA {
             try {
                 jda = new JDABuilder(Variables.getBotKey())
                         .addEventListeners(EventListener)
-                        .setActivity(Activity.playing("Online!"))
+                        .setActivity(Activity.listening("Chats"))
                         .build()
                         .awaitReady();
             } catch (LoginException e) {
                 e.printStackTrace();
             }
-            Debug.p("API", "JDA", "Finished Building JDA!");
+            Debug.p("JDA Utils", "JDA", "Finished Building JDA!");
         } catch (Exception e) {
             e.printStackTrace();
         }

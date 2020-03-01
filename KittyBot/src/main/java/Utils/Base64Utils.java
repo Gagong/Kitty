@@ -12,6 +12,6 @@ public class Base64Utils {
 
     public String Decode(String v) throws UnsupportedEncodingException {
         final byte[] ve = Base64.getDecoder().decode(v);
-        return new String(ve, "UTF-8");
+        return new String(ve, StandardCharsets.UTF_8);
     }
 }
