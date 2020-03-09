@@ -148,7 +148,7 @@ public class EventListener extends ListenerAdapter {
                                 data.roleName = "Global Elite";
                                 data.nextRoleName = "Legendary";
                                 EC.newRole(data, textChannel);
-                                this.updateRole(guild, guild.getMember(user), Roles.getGrandMaster(), Roles.getSupreme());
+                                this.updateRole(guild, guild.getMember(user), Roles.getSupreme(), Roles.getGlobalElite());
                             }
                             else if (fullRating >= 10000) {
                                 data.rating = fullRating;
@@ -186,103 +186,105 @@ public class EventListener extends ListenerAdapter {
                 });
             }
 
-            try {
-                JsonUtils.refreshUsers();
-                Collection<String> Base = JsonUtils.returnBase();
-                if (Base.contains(UID)) {
-                    JsonBase data = JsonUtils.JsonParseToBase(UID);
-                    data.rating++;
-                    switch (data.rating) {
-                        case 50:
-                            this.updateRole(guild, member, Roles.getNewbie(), Roles.getSilver());
-                            data.currentRole = Roles.getSilver();
-                            data.nextStep = 100;
-                            data.roleName = "Silver";
-                            data.nextRoleName = "Gold";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 100:
-                            this.updateRole(guild, member, Roles.getSilver(), Roles.getGold());
-                            data.currentRole = Roles.getGold();
-                            data.nextStep = 250;
-                            data.roleName = "Gold";
-                            data.nextRoleName = "Platinum";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 250:
-                            this.updateRole(guild, member, Roles.getGold(), Roles.getPlatinum());
-                            data.currentRole = Roles.getPlatinum();
-                            data.nextStep = 500;
-                            data.roleName = "Platinum";
-                            data.nextRoleName = "Nova";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 500:
-                            this.updateRole(guild, member, Roles.getPlatinum(), Roles.getNova());
-                            data.currentRole = Roles.getNova();
-                            data.nextStep = 1000;
-                            data.roleName = "Nova";
-                            data.nextRoleName = "Elite";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 1000:
-                            this.updateRole(guild, member, Roles.getNova(), Roles.getElite());
-                            data.currentRole = Roles.getElite();
-                            data.nextStep = 2000;
-                            data.roleName = "Elite";
-                            data.nextRoleName = "Master";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 2000:
-                            this.updateRole(guild, member, Roles.getElite(), Roles.getMaster());
-                            data.currentRole = Roles.getMaster();
-                            data.nextStep = 3000;
-                            data.roleName = "Master";
-                            data.nextRoleName = "Grand Master";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 3000:
-                            this.updateRole(guild, member, Roles.getMaster(), Roles.getGrandMaster());
-                            data.currentRole = Roles.getGrandMaster();
-                            data.nextStep = 4000;
-                            data.roleName = "Grand Master";
-                            data.nextRoleName = "Supreme";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 4000:
-                            this.updateRole(guild, member, Roles.getGrandMaster(), Roles.getSupreme());
-                            data.currentRole = Roles.getSupreme();
-                            data.nextStep = 5000;
-                            data.roleName = "Supreme";
-                            data.nextRoleName = "Global Elite";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 5000:
-                            this.updateRole(guild, member, Roles.getSupreme(), Roles.getGlobalElite());
-                            data.currentRole = Roles.getGlobalElite();
-                            data.nextStep = 10000;
-                            data.roleName = "Global Elite";
-                            data.nextRoleName = "Legendary";
-                            EC.newRole(data, textChannel);
-                            break;
-                        case 10000:
-                            EC.Legendary(data, textChannel);
-                            break;
-                        default:
-                            break;
+            if (!textChannel.getId().equals("609428100962582541")) {
+                try {
+                    JsonUtils.refreshUsers();
+                    Collection<String> Base = JsonUtils.returnBase();
+                    if (Base.contains(UID)) {
+                        JsonBase data = JsonUtils.JsonParseToBase(UID);
+                        data.rating++;
+                        switch (data.rating) {
+                            case 50:
+                                this.updateRole(guild, member, Roles.getNewbie(), Roles.getSilver());
+                                data.currentRole = Roles.getSilver();
+                                data.nextStep = 100;
+                                data.roleName = "Silver";
+                                data.nextRoleName = "Gold";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 100:
+                                this.updateRole(guild, member, Roles.getSilver(), Roles.getGold());
+                                data.currentRole = Roles.getGold();
+                                data.nextStep = 250;
+                                data.roleName = "Gold";
+                                data.nextRoleName = "Platinum";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 250:
+                                this.updateRole(guild, member, Roles.getGold(), Roles.getPlatinum());
+                                data.currentRole = Roles.getPlatinum();
+                                data.nextStep = 500;
+                                data.roleName = "Platinum";
+                                data.nextRoleName = "Nova";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 500:
+                                this.updateRole(guild, member, Roles.getPlatinum(), Roles.getNova());
+                                data.currentRole = Roles.getNova();
+                                data.nextStep = 1000;
+                                data.roleName = "Nova";
+                                data.nextRoleName = "Elite";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 1000:
+                                this.updateRole(guild, member, Roles.getNova(), Roles.getElite());
+                                data.currentRole = Roles.getElite();
+                                data.nextStep = 2000;
+                                data.roleName = "Elite";
+                                data.nextRoleName = "Master";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 2000:
+                                this.updateRole(guild, member, Roles.getElite(), Roles.getMaster());
+                                data.currentRole = Roles.getMaster();
+                                data.nextStep = 3000;
+                                data.roleName = "Master";
+                                data.nextRoleName = "Grand Master";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 3000:
+                                this.updateRole(guild, member, Roles.getMaster(), Roles.getGrandMaster());
+                                data.currentRole = Roles.getGrandMaster();
+                                data.nextStep = 4000;
+                                data.roleName = "Grand Master";
+                                data.nextRoleName = "Supreme";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 4000:
+                                this.updateRole(guild, member, Roles.getGrandMaster(), Roles.getSupreme());
+                                data.currentRole = Roles.getSupreme();
+                                data.nextStep = 5000;
+                                data.roleName = "Supreme";
+                                data.nextRoleName = "Global Elite";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 5000:
+                                this.updateRole(guild, member, Roles.getSupreme(), Roles.getGlobalElite());
+                                data.currentRole = Roles.getGlobalElite();
+                                data.nextStep = 10000;
+                                data.roleName = "Global Elite";
+                                data.nextRoleName = "Legendary";
+                                EC.newRole(data, textChannel);
+                                break;
+                            case 10000:
+                                EC.Legendary(data, textChannel);
+                                break;
+                            default:
+                                break;
+                        }
+                        JsonUtils.writeJson(data);
                     }
-                    JsonUtils.writeJson(data);
+                    else {
+                        JsonUtils.createNewUser(UID);
+                        event.getGuild().addRoleToMember(member, Objects.requireNonNull(event.getGuild().getRoleById(Roles.getNewbie()))).queue();
+                        JsonBase data = new JsonBase(UID, author.getName(), Roles.getNewbie(), "Newbie", "Silver", 1, 50, Instant.now().toString());
+                        JsonUtils.writeJson(data);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else {
-                    JsonUtils.createNewUser(UID);
-                    event.getGuild().addRoleToMember(member, Objects.requireNonNull(event.getGuild().getRoleById(Roles.getNewbie()))).queue();
-                    JsonBase data = new JsonBase(UID, author.getName(), Roles.getNewbie(), "Newbie", "Silver", 1, 50, Instant.now().toString());
-                    JsonUtils.writeJson(data);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-
+            
             String createChatString = guild.getName() + " | " + textChannel.getName() + " | " + name + " | " + msg;
             Debug.message("GUILD CHAT", "MessageReceive", createChatString);
         }
