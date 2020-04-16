@@ -2,16 +2,22 @@ package Utils;
 
 import Debug.Debug;
 import Variables.Roles;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EventListener extends ListenerAdapter {
 
@@ -184,6 +190,39 @@ public class EventListener extends ListenerAdapter {
                     }
 
                 });
+            }
+            else if (msg.startsWith("~") && msg.contains("~top")) {
+                Stream<Path> walk = null;
+                List<TopBase> TopRate = new ArrayList<>();
+
+                try {
+                    walk = Files.walk(Paths.get(System.getProperty("user.dir") + "/RateUsers"));
+                    List<String> result = walk.map(Path::toString).filter(f -> f.endsWith(".txt")).collect(Collectors.toList());
+                    result.forEach(f -> {
+                        String[] folderName = f.split("RateUsers");
+                        String fileName = folderName[1].substring(1).split(".txt")[0].toString();
+                        JsonBase data = JsonUtils.JsonParseToBase(fileName);
+                        TopRate.add(new TopBase(data.rating, data.userID));
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Collections.sort(TopRate, Collections.reverseOrder());
+
+                EmbedBuilder log = new EmbedBuilder();
+                log.setTitle("Leaderboard");
+                log.setDescription("Top 10 users on our server:");
+                log.setAuthor("Kitty Bot | Leaderboard", null, "https://github.com/Gagong/Kitty/raw/master/KittyBot/KittyBot.jpg");
+                log.setColor(Color.green);
+                log.setTimestamp(Instant.now());
+
+                for (int i = 0; i < 10; i++) {
+                    TopBase user = TopRate.get(i);
+                    log.addField("", "Top " + Integer.toString(i + 1) + ": <@" + user.ID + "> with " + user.rating.toString() + " rate!", false);
+                }
+
+                textChannel.sendMessage(log.build()).queue();
             }
 
             if (!textChannel.getId().equals("609428100962582541")) {

@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import java.awt.*;
 import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 public class EmbedCreator {
 
@@ -14,7 +15,9 @@ public class EmbedCreator {
         log.setAuthor("Kitty Bot | Auto Role", null, "https://github.com/Gagong/Kitty/raw/master/KittyBot/KittyBot.jpg");
         log.setColor(Color.pink);
         log.setTimestamp(Instant.now());
-        channel.sendMessage(log.build()).queue();
+        channel.sendMessage(log.build()).queue(e ->
+                e.delete().queueAfter(5, TimeUnit.SECONDS)
+        );
     }
 
     public void Legendary(JsonBase data, MessageChannel channel) {
